@@ -6,7 +6,7 @@ public class TestCode : MonoBehaviour
     void Start()
     {
         //test 
-        print("Hi");
+        print("Hi bbg");
     }
 
     // Update is called once per frame
