@@ -6,8 +6,24 @@ public class GameModeManager : MonoBehaviour
     public GameObject visualNovelPanel;       // Assign your VN UI panel here
     //public InkManager inkManager;             // Assign your Ink dialogue manager
 
+    private static GameModeManager instance;
+    
     public enum GameMode { Walk, VisualNovel }
-    public GameMode currentMode = GameMode.Walk;
+    public GameMode currentMode = GameMode.VisualNovel;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("Found more than one GameModeManager in scene.");
+        }
+        instance = this;
+    }
+
+    public static GameModeManager GetInstance()
+    {
+        return instance;
+    }
 
     void Start()
     {
@@ -30,12 +46,15 @@ public class GameModeManager : MonoBehaviour
     }
 
     // Example trigger: Call this when player interacts with something that starts dialogue
+    /*
     public void StartVisualNovel(Story inkStory)
     {
         SetMode(GameMode.VisualNovel);
         inkManager.StartStory(inkStory, OnVNFinished);
     }
 
+    */
+    
     // Callback for when Ink story ends
     public void OnVNFinished()
     {
