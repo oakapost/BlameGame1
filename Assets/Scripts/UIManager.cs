@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
     public GameObject gameScreen;
     public GameObject pauseScreen;
     public GameObject areYouSureMMPanel;
+    public GameObject optionsScreen;
 
     public void ShowMainMenu()
     {
@@ -30,11 +31,21 @@ public class UIManager : MonoBehaviour
     public void ShowPauseScreen()
     {
         pauseScreen.SetActive(true);
+        // Disable input when pause screen is shown
+        if (InputHandler.GetInstance() != null)
+        {
+            InputHandler.GetInstance().DisableInput();
+        }
     }
 
     public void HidePauseScreen()
     {
         pauseScreen.SetActive(false);
+        // Re-enable input when pause screen is hidden
+        if (InputHandler.GetInstance() != null)
+        {
+            InputHandler.GetInstance().EnableInput();
+        }
     }
 
     public void ShowAreYouSureMMPanel()
@@ -46,5 +57,14 @@ public class UIManager : MonoBehaviour
     {
         areYouSureMMPanel.SetActive(false);
     }
-    
+
+    public void ShowOptionsScreen()
+    {
+        optionsScreen.SetActive(true);
+    }
+
+    public void HideOptionsScreen()
+    {
+        optionsScreen.SetActive(false);
+    }
 }
