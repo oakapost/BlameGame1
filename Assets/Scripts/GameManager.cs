@@ -45,6 +45,16 @@ public class GameManager : MonoBehaviour
         uiManager.HideAreYouSureMMPanel();
     }
 
+    public void OnOptionsButtonClicked()
+    {
+        uiManager.ShowOptionsScreen();
+    }
+
+    public void OnExitOptionsButtonClicked()
+    {
+        uiManager.HideOptionsScreen();
+    }
+
     public void StartNewGame()
     {
         // Initialize game state here

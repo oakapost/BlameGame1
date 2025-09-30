@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class InputHandler : MonoBehaviour
 {
     private static InputHandler instance;
+    private bool inputEnabled = true; // Track if input is enabled
 
     private void Awake()
     {
@@ -22,12 +23,114 @@ public class InputHandler : MonoBehaviour
         return instance;
     }
 
+    private void Update()
+    {
+        // Check for pause input (ESC key)
+        if (GetPausePressed())
+        {
+            HandlePauseInput();
+        }
+    }
+
+    private void HandlePauseInput()
+    {
+        var uiManager = FindFirstObjectByType<UIManager>();
+        if (uiManager == null) return;
+
+        // Priority 1: If options screen is active, just close it
+        if (uiManager.optionsScreen != null && uiManager.optionsScreen.activeSelf)
+        {
+            uiManager.HideOptionsScreen();
+            return;
+        }
+
+        // Priority 2: If areYouSureMMPanel is active, just close it
+        if (uiManager.areYouSureMMPanel != null && uiManager.areYouSureMMPanel.activeSelf)
+        {
+            uiManager.HideAreYouSureMMPanel();
+            return;
+        }
+
+        // Priority 3: Don't allow pausing if main menu is active
+        if (IsMainMenuActive())
+        {
+            return;
+        }
+
+        // Priority 4: Toggle pause state
+        // Check if pause screen is already active
+        if (uiManager.pauseScreen.activeSelf)
+        {
+            // If paused, unpause
+            uiManager.HidePauseScreen();
+        }
+        else
+        {
+            // If not paused, pause
+            uiManager.ShowPauseScreen();
+        }
+    }
+
+    private bool IsMainMenuActive()
+    {
+        var uiManager = FindFirstObjectByType<UIManager>();
+        if (uiManager != null && uiManager.mainMenu != null)
+        {
+            return uiManager.mainMenu.activeSelf;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Enable input handling
+    /// </summary>
+    public void EnableInput()
+    {
+        inputEnabled = true;
+        Debug.Log("Input enabled");
+    }
+
+    /// <summary>
+    /// Disable input handling
+    /// </summary>
+    public void DisableInput()
+    {
+        inputEnabled = false;
+        Debug.Log("Input disabled");
+    }
+
+    /// <summary>
+    /// Check if input is currently enabled
+    /// </summary>
+    public bool IsInputEnabled()
+    {
+        return inputEnabled;
+    }
+
+    /// <summary>
+    /// Returns true when ESC key is pressed for pausing
+    /// Works in all modes except when main menu is active
+    /// </summary>
+    public bool GetPausePressed()
+    {
+        var keyboard = Keyboard.current;
+        if (keyboard == null) return false;
+
+        return keyboard.escapeKey.wasPressedThisFrame;
+    }
+
     /// <summary>
     /// Returns true when Enter, Spacebar, or Left Mouse Click is pressed this frame
-    /// Only works in Visual Novel mode
+    /// Only works in Visual Novel mode and when input is enabled
     /// </summary>
     public bool GetSubmitPressed()
     {
+        // Check if input is disabled
+        if (!inputEnabled)
+        {
+            return false;
+        }
+
         // Only allow input if we're in Visual Novel mode
         if (GameModeManager.GetInstance() == null || 
             GameModeManager.GetInstance().currentMode != GameModeManager.GameMode.VisualNovel)
@@ -60,10 +163,16 @@ public class InputHandler : MonoBehaviour
 
     /// <summary>
     /// Returns true while Enter, Spacebar, or Left Mouse Button is being held down
-    /// Only works in Visual Novel mode
+    /// Only works in Visual Novel mode and when input is enabled
     /// </summary>
     public bool GetSubmitHeld()
     {
+        // Check if input is disabled
+        if (!inputEnabled)
+        {
+            return false;
+        }
+
         // Only allow input if we're in Visual Novel mode
         if (GameModeManager.GetInstance() == null || 
             GameModeManager.GetInstance().currentMode != GameModeManager.GameMode.VisualNovel)
@@ -95,7 +204,7 @@ public class InputHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns true when Escape key is pressed (for pausing/canceling)
+    /// Returns true when Escape key is pressed (for general canceling - pausing is handled automatically)
     /// </summary>
     public bool GetCancelPressed()
     {
