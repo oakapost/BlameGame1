@@ -17,9 +17,15 @@ public class DialougeManager : MonoBehaviour
     
     [Header("Character Sprites")]
     [SerializeField] private Sprite[] characterSprites;
+    
+    [Header("Animation Settings")]
+    [SerializeField] private float hopHeight = 20f;
+    [SerializeField] private float hopDuration = 0.3f;
+    
     private static DialougeManager instance;
     private Story currentStory;
     private bool dialougeIsPlaying;
+    private string currentSpeaker = "";
 
     private void Awake()
     {
@@ -67,6 +73,9 @@ public class DialougeManager : MonoBehaviour
         {
             nameText.text = "";
         }
+
+        // Reset current speaker for next dialogue
+        currentSpeaker = "";
 
         // Hide all character sprites
         if (blakeSprite != null)
@@ -138,6 +147,13 @@ public class DialougeManager : MonoBehaviour
         {
             Debug.LogWarning("Name text component not assigned!");
         }
+        
+        // Check if speaker changed and trigger hop animation
+        if (currentSpeaker != speakerName)
+        {
+            TriggerSpeakerHop(speakerName);
+            currentSpeaker = speakerName;
+        }
     }
 
     private void DisplayCharacterSprite(string spriteName)
@@ -199,6 +215,67 @@ public class DialougeManager : MonoBehaviour
             otherCharacterSprite.gameObject.SetActive(false);
             Debug.Log("Hidden other character sprite");
         }
+    }
+
+    private void TriggerSpeakerHop(string speakerName)
+    {
+        // Determine which character sprite to animate based on speaker
+        UnityEngine.UI.Image targetSprite = null;
+        
+        if (speakerName == "Blake")
+        {
+            targetSprite = blakeSprite;
+        }
+        else
+        {
+            targetSprite = otherCharacterSprite;
+        }
+        
+        // Only animate if the sprite exists and is active
+        if (targetSprite != null && targetSprite.gameObject.activeSelf)
+        {
+            StartCoroutine(HopAnimation(targetSprite.transform));
+        }
+    }
+
+    private System.Collections.IEnumerator HopAnimation(Transform target)
+    {
+        Vector3 originalPosition = target.localPosition;
+        Vector3 hopPosition = originalPosition + Vector3.up * hopHeight;
+        
+        float elapsedTime = 0f;
+        float halfDuration = hopDuration / 2f;
+        
+        // Hop up
+        while (elapsedTime < halfDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float progress = elapsedTime / halfDuration;
+            
+            // Use easing for smooth animation
+            float easedProgress = Mathf.Sin(progress * Mathf.PI * 0.5f); // Ease out
+            target.localPosition = Vector3.Lerp(originalPosition, hopPosition, easedProgress);
+            
+            yield return null;
+        }
+        
+        elapsedTime = 0f;
+        
+        // Hop down
+        while (elapsedTime < halfDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float progress = elapsedTime / halfDuration;
+            
+            // Use easing for smooth animation
+            float easedProgress = 1f - Mathf.Cos(progress * Mathf.PI * 0.5f); // Ease in
+            target.localPosition = Vector3.Lerp(hopPosition, originalPosition, easedProgress);
+            
+            yield return null;
+        }
+        
+        // Ensure we end exactly at the original position
+        target.localPosition = originalPosition;
     }
 
     private Sprite FindSpriteByName(string spriteName)
