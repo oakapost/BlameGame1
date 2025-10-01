@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class InputHandler : MonoBehaviour
 {
     private static InputHandler instance;
-    private bool inputEnabled = true; // Track if input is enabled
+    private bool inputEnabled = true; 
 
     private void Awake()
     {
@@ -25,7 +25,7 @@ public class InputHandler : MonoBehaviour
 
     private void Update()
     {
-        // Check for pause input (ESC key)
+        // Check for esc key which will pause
         if (GetPausePressed())
         {
             HandlePauseInput();

@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public UIManager uiManager;
     [Header("Dialogue")]
-    public TextAsset inkJSON; // Drag your "New Test" ink file here
+    public TextAsset IntroInk; // intro ink file
 
     public void OnNewGameButtonClicked()
     {
@@ -60,6 +60,6 @@ public class GameManager : MonoBehaviour
         // Initialize game state here
         Debug.Log("New Game Started!");
         uiManager.ShowGameScreen();
-        DialougeManager.GetInstance().EnterDialougeMode(inkJSON);
+        DialougeManager.GetInstance().EnterDialougeMode(IntroInk);
     }
 }
