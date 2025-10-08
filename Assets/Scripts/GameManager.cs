@@ -55,6 +55,21 @@ public class GameManager : MonoBehaviour
         uiManager.HideOptionsScreen();
     }
 
+    public void OnSettingsButtonClicked()
+    {
+        uiManager.ShowSettingsPanel();
+    }
+
+    public void OnControlsButtonClicked()
+    {
+        uiManager.ShowControlsPanel();
+    }
+
+    public void OnAboutButtonClicked()
+    {
+        uiManager.ShowAboutPanel();
+    }
+
     public void StartNewGame()
     {
         // Initialize game state here

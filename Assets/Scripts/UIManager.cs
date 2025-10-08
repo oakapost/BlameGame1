@@ -7,6 +7,9 @@ public class UIManager : MonoBehaviour
     public GameObject pauseScreen;
     public GameObject areYouSureMMPanel;
     public GameObject optionsScreen;
+    public GameObject settingsPanel;
+    public GameObject controlsPanel;
+    public GameObject aboutPanel;
 
     public void ShowMainMenu()
     {
@@ -61,10 +64,34 @@ public class UIManager : MonoBehaviour
     public void ShowOptionsScreen()
     {
         optionsScreen.SetActive(true);
+        ShowSettingsPanel();
     }
 
     public void HideOptionsScreen()
     {
         optionsScreen.SetActive(false);
     }
+
+    public void ShowSettingsPanel()
+    {
+        settingsPanel.SetActive(true);
+        controlsPanel.SetActive(false);
+        aboutPanel.SetActive(false);
+    }
+
+    public void ShowControlsPanel()
+    {
+        controlsPanel.SetActive(true);
+        settingsPanel.SetActive(false);
+        aboutPanel.SetActive(false);
+    }
+
+    public void ShowAboutPanel()
+    {
+        aboutPanel.SetActive(true);
+        settingsPanel.SetActive(false);
+        controlsPanel.SetActive(false);
+    }
+
+
 }
