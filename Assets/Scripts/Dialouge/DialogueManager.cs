@@ -4,11 +4,11 @@ using UnityEngine;
 using Ink.Runtime;
 using TMPro;
 
-public class DialougeManager : MonoBehaviour
+public class DialogueManager : MonoBehaviour
 {
-    [Header("Dialouge UI")] 
+    [Header("Dialogue UI")] 
     [SerializeField] private GameObject Textbox;
-    [SerializeField] private TextMeshProUGUI dialougeText;
+    [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI nameText;
     
     [Header("Character Images")]
@@ -21,10 +21,10 @@ public class DialougeManager : MonoBehaviour
     [Header("Animation Settings")]
     [SerializeField] private float hopHeight = 20f;
     [SerializeField] private float hopDuration = 0.3f;
-    
-    private static DialougeManager instance;
+
+    private static DialogueManager instance;
     private Story currentStory;
-    private bool dialougeIsPlaying;
+    private bool dialogueIsPlaying;
     private string currentSpeaker = "";
 
     private void Awake()
@@ -36,14 +36,14 @@ public class DialougeManager : MonoBehaviour
         instance = this;
     }
 
-    public static DialougeManager GetInstance()
+    public static DialogueManager GetInstance()
     {
         return instance;
     }
     
     private void Update()
     {
-        if (!dialougeIsPlaying)
+        if (!dialogueIsPlaying)
         {
             return;
         }
@@ -54,20 +54,20 @@ public class DialougeManager : MonoBehaviour
         }
     }
 
-    public void EnterDialougeMode(TextAsset inkJSON)
+    public void EnterDialogueMode(TextAsset inkJSON)
     {
         currentStory = new Story(inkJSON.text);
-        dialougeIsPlaying = true;
+        dialogueIsPlaying = true;
         GameModeManager.GetInstance().SetMode(GameModeManager.GameMode.VisualNovel);
         ContinueStory();
     }
 
-    private void ExitDialougeMode()
+    private void ExitDialogueMode()
     {
-        dialougeIsPlaying = false;
+        dialogueIsPlaying = false;
         GameModeManager.GetInstance().SetMode(GameModeManager.GameMode.Walk);
-        dialougeText.text = "";
-        
+        dialogueText.text = "";
+
         // Clear the name text
         if (nameText != null)
         {
@@ -99,11 +99,11 @@ public class DialougeManager : MonoBehaviour
             HandleTags(currentStory.currentTags);
             
             // Set the dialogue text
-            dialougeText.text = dialogueLine;
+            dialogueText.text = dialogueLine;
         }
         else
         {
-            ExitDialougeMode();
+            ExitDialogueMode();
         }
     }
 
