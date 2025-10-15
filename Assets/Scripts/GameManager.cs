@@ -5,11 +5,16 @@ public class GameManager : MonoBehaviour
 {
     [Header("Scene Management")]
     public GameSceneManager gameSceneManager;
-    
+
     private void Awake()
     {
         // Set up button click detection for MainMenu scene
         SetupMainMenuButtons();
+    }
+    
+    private void OnTestNewGameButtonClicked()
+    {
+        gameSceneManager.LoadNewGame();
     }
     
     private void SetupMainMenuButtons()

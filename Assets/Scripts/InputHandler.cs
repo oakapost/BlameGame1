@@ -34,79 +34,52 @@ public class InputHandler : MonoBehaviour
 
     private void HandlePauseInput()
     {
-        // Priority 0: Don't allow pausing if we're in MainMenu scene
-        if (IsMainMenuActive())
-        {
-            Debug.Log("Pause disabled in MainMenu scene");
-            return;
-        }
-        
         var pauseManager = FindFirstObjectByType<PauseManager>(FindObjectsInactive.Include);
         var optionsManager = FindFirstObjectByType<OptionsManager>(FindObjectsInactive.Include);
         
-
-        
-        if (pauseManager == null) 
+        // Priority 1: Handle options menu closing FIRST (works in any scene)
+        if (optionsManager != null && optionsManager.optionsScreen != null && optionsManager.optionsScreen.activeSelf)
         {
-            Debug.Log("No PauseManager found in scene - pause disabled");
+            // Close ALL sub-panels and the main options screen in one ESC press
+            if (optionsManager.settingsPanel != null)
+                optionsManager.settingsPanel.SetActive(false);
+            
+            if (optionsManager.controlsPanel != null)
+                optionsManager.controlsPanel.SetActive(false);
+            
+            if (optionsManager.aboutPanel != null)
+                optionsManager.aboutPanel.SetActive(false);
+            
+            // Always close the entire options screen
+            optionsManager.OnExitOptionsButtonClicked();
             return;
         }
         
-        // Check if PauseManager has valid UI references
-        Debug.Log($"PauseManager found: {pauseManager.gameObject.name}");
-        Debug.Log($"PauseScreen reference: {(pauseManager.pauseScreen != null ? pauseManager.pauseScreen.name : "NULL")}");
-        Debug.Log($"PauseScreen active in hierarchy: {(pauseManager.pauseScreen != null ? pauseManager.pauseScreen.activeInHierarchy.ToString() : "N/A")}");
+        // Priority 2: Don't allow pause functionality in MainMenu scene
+        if (IsMainMenuActive())
+        {
+            return;
+        }
+        
+        // From here on, we're in a game scene where pause is allowed
+        if (pauseManager == null) 
+        {
+            return;
+        }
         
         if (pauseManager.pauseScreen == null)
         {
-            Debug.LogError($"PauseManager found in {UnityEngine.SceneManagement.SceneManager.GetActiveScene().name} scene but pauseScreen is not assigned! Please assign it in the Inspector.");
             return;
         }
 
-        // Priority 1: If any options sub-panel is active, close it and return to main options
-        if (optionsManager != null && optionsManager.optionsScreen != null && optionsManager.optionsScreen.activeSelf)
-        {
-            // Check if any sub-panel is active
-            bool anySubPanelActive = false;
-            
-            if (optionsManager.settingsPanel != null && optionsManager.settingsPanel.activeSelf)
-            {
-                optionsManager.settingsPanel.SetActive(false);
-                anySubPanelActive = true;
-            }
-            else if (optionsManager.controlsPanel != null && optionsManager.controlsPanel.activeSelf)
-            {
-                optionsManager.controlsPanel.SetActive(false);
-                anySubPanelActive = true;
-            }
-            else if (optionsManager.aboutPanel != null && optionsManager.aboutPanel.activeSelf)
-            {
-                optionsManager.aboutPanel.SetActive(false);
-                anySubPanelActive = true;
-            }
-            
-            // If no sub-panel was active, close the entire options screen
-            if (!anySubPanelActive)
-            {
-                optionsManager.OnExitOptionsButtonClicked();
-            }
-            return;
-        }
-
-        // Priority 2: If areYouSureMMPanel is active, just close it
+        // Priority 4: If areYouSureMMPanel is active, just close it
         if (pauseManager.areYouSureMMPanel != null && pauseManager.areYouSureMMPanel.activeSelf)
         {
             pauseManager.HideAreYouSureMMPanel();
             return;
         }
 
-        // Priority 3: Don't allow pausing if main menu is active
-        if (IsMainMenuActive())
-        {
-            return;
-        }
-
-        // Priority 4: Toggle pause state
+        // Priority 5: Toggle pause state
         // Check if pause screen is already active
         if (pauseManager.pauseScreen != null && pauseManager.pauseScreen.activeSelf)
         {
@@ -262,6 +235,22 @@ public class InputHandler : MonoBehaviour
     {
         var keyboard = Keyboard.current;
         return keyboard != null && keyboard.escapeKey.wasPressedThisFrame;
+    }
+
+    /// <summary>
+    /// Returns true when Tab key is held down (for dialogue skipping in Visual Novel mode)
+    /// </summary>
+    public bool GetSkipPressed()
+    {
+        // Only allow skip in Visual Novel mode
+        if (GameModeManager.GetInstance() == null || 
+            GameModeManager.GetInstance().currentMode != GameModeManager.GameMode.VisualNovel)
+        {
+            return false;
+        }
+
+        var keyboard = Keyboard.current;
+        return keyboard != null && keyboard.tabKey.isPressed;
     }
 
     /// <summary>

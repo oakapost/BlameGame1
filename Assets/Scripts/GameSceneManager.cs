@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameSceneManager : MonoBehaviour
 {
     public DialogueManager dialogueManager;
-    [Header("Dialogue")]
-    public TextAsset IntroInk; // intro ink file
+
 
     public void LoadMainMenu()
     {
@@ -30,32 +29,5 @@ public class GameSceneManager : MonoBehaviour
             UnityEditor.EditorApplication.isPlaying = false;
         #endif
     }
-
-    /*
-    private System.Collections.IEnumerator LoadNewGameCoroutine()
-    {
-        // Load the scene
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("NewGame");
-
-        // Wait until the scene is fully loaded
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
-
-        // Wait one more frame to ensure everything is initialized
-        yield return null;
-
-        // Now start the dialogue
-        if (DialogueManager.GetInstance() != null)
-        {
-            DialogueManager.GetInstance().EnterDialogueMode(IntroInk);
-        }
-        else
-        {
-            Debug.LogError("DialogueManager not found in the loaded scene!");
-        }
-    }
-    */
 
 }

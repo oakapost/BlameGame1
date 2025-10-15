@@ -21,11 +21,18 @@ public class DialogueManager : MonoBehaviour
     [Header("Animation Settings")]
     [SerializeField] private float hopHeight = 20f;
     [SerializeField] private float hopDuration = 0.3f;
+    
+    [Header("Skip Settings")]
+    [SerializeField] private float skipSpeed = 0.1f; // Time between dialogue advances when skipping
 
     private static DialogueManager instance;
     private Story currentStory;
     private bool dialogueIsPlaying;
     private string currentSpeaker = "";
+    
+    // Skip functionality
+    private float skipTimer = 0f;
+    private bool isSkipping = false;
 
     private void Awake()
     {
@@ -48,9 +55,31 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         
-        if (InputHandler.GetInstance().GetSubmitPressed())
+        var inputHandler = InputHandler.GetInstance();
+        
+        // Check for skip input (Tab key held down)
+        if (inputHandler.GetSkipPressed())
         {
-            ContinueStory();
+            isSkipping = true;
+            // Rapidly advance dialogue while Tab is held
+            skipTimer -= Time.deltaTime;
+            if (skipTimer <= 0f)
+            {
+                ContinueStory();
+                skipTimer = skipSpeed; // Reset timer for next skip advance
+            }
+        }
+        else
+        {
+            isSkipping = false;
+            // Reset skip timer when not skipping
+            skipTimer = 0f;
+            
+            // Normal input handling
+            if (inputHandler.GetSubmitPressed())
+            {
+                ContinueStory();
+            }
         }
     }
 
@@ -148,10 +177,13 @@ public class DialogueManager : MonoBehaviour
             Debug.LogWarning("Name text component not assigned!");
         }
         
-        // Check if speaker changed and trigger hop animation
+        // Check if speaker changed and trigger hop animation (but not when skipping)
         if (currentSpeaker != speakerName)
         {
-            TriggerSpeakerHop(speakerName);
+            if (!isSkipping)
+            {
+                TriggerSpeakerHop(speakerName);
+            }
             currentSpeaker = speakerName;
         }
     }
