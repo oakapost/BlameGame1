@@ -14,6 +14,7 @@ public class DialogueManager : MonoBehaviour
     [Header("Character Images")]
     [SerializeField] private UnityEngine.UI.Image blakeSprite;      // Always on the left
     [SerializeField] private UnityEngine.UI.Image otherCharacterSprite; // Always on the right
+    [SerializeField] private UnityEngine.UI.Image thirdCharacterSprite; // Center or special position
     
     [Header("Character Sprites")]
     [SerializeField] private Sprite[] characterSprites;
@@ -158,6 +159,9 @@ public class DialogueManager : MonoBehaviour
                 case "sprite":
                     DisplayCharacterSprite(tagValue);
                     break;
+                case "third_sprite":
+                    DisplayThirdCharacterSprite(tagValue);
+                    break;
                 // You can add more tag types here later (like emotions, etc.)
                 default:
                     Debug.Log("Tag came in but is not currently being handled: " + tag);
@@ -206,7 +210,6 @@ public class DialogueManager : MonoBehaviour
             if (blakeSprite != null)
             {
                 blakeSprite.sprite = foundSprite;
-                blakeSprite.gameObject.SetActive(true);
                 Debug.Log($"Changed Blake sprite to: {spriteName}");
             }
             else
@@ -220,7 +223,6 @@ public class DialogueManager : MonoBehaviour
             if (otherCharacterSprite != null)
             {
                 otherCharacterSprite.sprite = foundSprite;
-                otherCharacterSprite.gameObject.SetActive(true);
                 Debug.Log($"Changed other character sprite to: {spriteName}");
             }
             else
@@ -230,22 +232,26 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    // Optional: Method to hide specific characters
-    public void HideBlakeSprite()
+    private void DisplayThirdCharacterSprite(string spriteName)
     {
-        if (blakeSprite != null)
+        // Find the sprite with the matching name
+        Sprite foundSprite = FindSpriteByName(spriteName);
+        
+        if (foundSprite == null)
         {
-            blakeSprite.gameObject.SetActive(false);
-            Debug.Log("Hidden Blake sprite");
+            Debug.LogWarning($"Third character sprite '{spriteName}' not found in character sprites array!");
+            return;
         }
-    }
 
-    public void HideOtherCharacterSprite()
-    {
-        if (otherCharacterSprite != null)
+        // Display the sprite on the third character image
+        if (thirdCharacterSprite != null)
         {
-            otherCharacterSprite.gameObject.SetActive(false);
-            Debug.Log("Hidden other character sprite");
+            thirdCharacterSprite.sprite = foundSprite;
+            Debug.Log($"Changed third character sprite to: {spriteName}");
+        }
+        else
+        {
+            Debug.LogWarning("Third character sprite component not assigned!");
         }
     }
 
@@ -263,8 +269,8 @@ public class DialogueManager : MonoBehaviour
             targetSprite = otherCharacterSprite;
         }
         
-        // Only animate if the sprite exists and is active
-        if (targetSprite != null && targetSprite.gameObject.activeSelf)
+        // Only animate if the sprite exists and has a sprite assigned
+        if (targetSprite != null && targetSprite.sprite != null)
         {
             StartCoroutine(HopAnimation(targetSprite.transform));
         }
