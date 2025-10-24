@@ -24,7 +24,22 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private float hopDuration = 0.3f;
     
     [Header("Skip Settings")]
-    [SerializeField] private float skipSpeed = 0.1f; // Time between dialogue advances when skipping
+    [SerializeField] private float skipSpeed = 0.1f;
+    
+    [Header("Typewriter Effect")]
+    [SerializeField] private float typewriterSpeed = 0.05f; 
+    [SerializeField] private bool enableTypewriter = true; // Toggle typewriter effect on/off
+    
+    [Header("Character Name Colors")]
+    [SerializeField] private Color blakeNameColor = Color.red;
+    [SerializeField] private Color avaNameColor = Color.magenta; 
+    [SerializeField] private Color jellyfishNameColor = Color.yellow;
+    [SerializeField] private Color lydiaNameColor = Color.blue;
+    [SerializeField] private Color vivianNameColor = new Color(1f, 0.5f, 0f); 
+    [SerializeField] private Color jayNameColor = new Color(0.5f, 0f, 1f);
+    [SerializeField] private Color noahNameColor = Color.green;
+    [SerializeField] private Color defaultNameColor = Color.black;
+    [SerializeField] private bool useCharacterColors = true; // Toggle colored names on/off
 
     private static DialogueManager instance;
     private Story currentStory;
@@ -34,6 +49,11 @@ public class DialogueManager : MonoBehaviour
     // Skip functionality
     private float skipTimer = 0f;
     private bool isSkipping = false;
+    
+    // Typewriter effect functionality
+    private Coroutine typewriterCoroutine;
+    private bool isTyping = false;
+    private string currentDialogueLine = "";
 
     private void Awake()
     {
@@ -62,6 +82,12 @@ public class DialogueManager : MonoBehaviour
         if (inputHandler.GetSkipPressed())
         {
             isSkipping = true;
+            // If currently typing, complete the typewriter and continue skipping
+            if (isTyping)
+            {
+                CompleteTypewriter();
+            }
+            
             // Rapidly advance dialogue while Tab is held
             skipTimer -= Time.deltaTime;
             if (skipTimer <= 0f)
@@ -79,7 +105,16 @@ public class DialogueManager : MonoBehaviour
             // Normal input handling
             if (inputHandler.GetSubmitPressed())
             {
-                ContinueStory();
+                // If currently typing, complete the typewriter effect
+                if (isTyping)
+                {
+                    CompleteTypewriter();
+                }
+                else
+                {
+                    // If not typing, advance to next dialogue line
+                    ContinueStory();
+                }
             }
         }
     }
@@ -128,8 +163,17 @@ public class DialogueManager : MonoBehaviour
             // Handle tags (including speaker name)
             HandleTags(currentStory.currentTags);
             
-            // Set the dialogue text
-            dialogueText.text = dialogueLine;
+            // Display the dialogue with typewriter effect
+            if (enableTypewriter)
+            {
+                StartTypewriter(dialogueLine);
+            }
+            else
+            {
+                // Instant display if typewriter is disabled
+                dialogueText.text = dialogueLine;
+                currentDialogueLine = dialogueLine;
+            }
         }
         else
         {
@@ -170,11 +214,63 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private void StartTypewriter(string line)
+    {
+        // Stop any existing typewriter effect
+        if (typewriterCoroutine != null)
+        {
+            StopCoroutine(typewriterCoroutine);
+        }
+        
+        currentDialogueLine = line;
+        isTyping = true;
+        typewriterCoroutine = StartCoroutine(TypewriterEffect(line));
+    }
+
+    private System.Collections.IEnumerator TypewriterEffect(string line)
+    {
+        dialogueText.text = "";
+        
+        for (int i = 0; i <= line.Length; i++)
+        {
+            dialogueText.text = line.Substring(0, i);
+            
+            // Check if skipping is active - if so, speed up dramatically
+            float currentSpeed = isSkipping ? typewriterSpeed * 0.1f : typewriterSpeed;
+            
+            yield return new WaitForSeconds(currentSpeed);
+        }
+        
+        isTyping = false;
+        typewriterCoroutine = null;
+    }
+
+    public void CompleteTypewriter()
+    {
+        if (isTyping && typewriterCoroutine != null)
+        {
+            StopCoroutine(typewriterCoroutine);
+            dialogueText.text = currentDialogueLine;
+            isTyping = false;
+            typewriterCoroutine = null;
+        }
+    }
+
     private void DisplaySpeakerName(string speakerName)
     {
         if (nameText != null)
         {
-            nameText.text = speakerName;
+            if (useCharacterColors)
+            {
+                // Apply color based on character name
+                string coloredName = GetColoredSpeakerName(speakerName);
+                nameText.text = coloredName;
+            }
+            else
+            {
+                // No coloring, just display the name
+                nameText.text = speakerName;
+            }
         }
         else
         {
@@ -190,6 +286,43 @@ public class DialogueManager : MonoBehaviour
             }
             currentSpeaker = speakerName;
         }
+    }
+
+    private string GetColoredSpeakerName(string speakerName)
+    {
+        // Convert Unity Color to hex string for TextMeshPro rich text
+        string colorHex;
+        
+        switch (speakerName.ToLower())
+        {
+            case "blake":
+                colorHex = ColorUtility.ToHtmlStringRGB(blakeNameColor);
+                break;
+            case "ava":
+                colorHex = ColorUtility.ToHtmlStringRGB(avaNameColor);
+                break;
+            case "jellyfish":
+                colorHex = ColorUtility.ToHtmlStringRGB(jellyfishNameColor);
+                break;
+            case "lydia":
+                colorHex = ColorUtility.ToHtmlStringRGB(lydiaNameColor);
+                break;
+            case "vivian":
+                colorHex = ColorUtility.ToHtmlStringRGB(vivianNameColor);
+                break;
+            case "jay":
+                colorHex = ColorUtility.ToHtmlStringRGB(jayNameColor);
+                break;
+            case "noah":
+                colorHex = ColorUtility.ToHtmlStringRGB(noahNameColor);
+                break;
+            default:
+                colorHex = ColorUtility.ToHtmlStringRGB(defaultNameColor);
+                break;
+        }
+        
+        // Return the name wrapped in TextMeshPro color tags
+        return $"<color=#{colorHex}>{speakerName}</color>";
     }
 
     private void DisplayCharacterSprite(string spriteName)

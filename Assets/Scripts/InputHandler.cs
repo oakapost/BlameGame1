@@ -249,6 +249,20 @@ public class InputHandler : MonoBehaviour
             return false;
         }
 
+        // Don't allow skipping if pause menu is open
+        var pauseManager = FindFirstObjectByType<PauseManager>(FindObjectsInactive.Include);
+        if (pauseManager != null && pauseManager.pauseScreen != null && pauseManager.pauseScreen.activeSelf)
+        {
+            return false;
+        }
+
+        // Don't allow skipping if options menu is open
+        var optionsManager = FindFirstObjectByType<OptionsManager>(FindObjectsInactive.Include);
+        if (optionsManager != null && optionsManager.optionsScreen != null && optionsManager.optionsScreen.activeSelf)
+        {
+            return false;
+        }
+
         var keyboard = Keyboard.current;
         return keyboard != null && keyboard.tabKey.isPressed;
     }

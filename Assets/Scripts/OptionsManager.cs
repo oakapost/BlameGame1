@@ -10,12 +10,11 @@ public class OptionsManager : MonoBehaviour
     public void OnOptionsButtonClicked()
     {
         optionsScreen.SetActive(true);
-        
-        // Default to settings panel, but hide others first
-        settingsPanel.SetActive(true);
-        controlsPanel.SetActive(false);
-        aboutPanel.SetActive(false);
+
+        // Default
+        OnSettingsButtonClicked();
     }
+    
     public void OnExitOptionsButtonClicked()
     {
         optionsScreen.SetActive(false);

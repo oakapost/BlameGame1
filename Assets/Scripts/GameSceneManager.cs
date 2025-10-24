@@ -10,14 +10,12 @@ public class GameSceneManager : MonoBehaviour
     public void LoadMainMenu()
     {
         Debug.Log("Loading MainMenu scene");
-        // Use LoadScene with Single mode to completely unload previous scene
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 
     public void LoadNewGame()
     {
         Debug.Log("LoadNewGame called - attempting to load NewGame scene");
-        // Use regular LoadScene instead of async to ensure clean loading
         UnityEngine.SceneManagement.SceneManager.LoadScene("NewGame");
     }
     
