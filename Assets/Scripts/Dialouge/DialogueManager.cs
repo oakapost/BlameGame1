@@ -343,7 +343,7 @@ public class DialogueManager : MonoBehaviour
             if (blakeSprite != null)
             {
                 blakeSprite.sprite = foundSprite;
-                Debug.Log($"Changed Blake sprite to: {spriteName}");
+                //Debug.Log($"Changed Blake sprite to: {spriteName}");
             }
             else
             {

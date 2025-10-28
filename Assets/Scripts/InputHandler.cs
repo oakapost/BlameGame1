@@ -268,11 +268,60 @@ public class InputHandler : MonoBehaviour
     }
 
     /// <summary>
+    /// Returns WASD movement input as Vector2 (only works in Walk mode)
+    /// </summary>
+    public Vector2 GetMovementInput()
+    {
+        // Only allow movement input in Walk mode
+        if (GameModeManager.GetInstance() == null || 
+            GameModeManager.GetInstance().currentMode != GameModeManager.GameMode.Walk)
+        {
+            return Vector2.zero;
+        }
+
+        // Don't allow movement if pause menu is open
+        var pauseManager = FindFirstObjectByType<PauseManager>(FindObjectsInactive.Include);
+        if (pauseManager != null && pauseManager.pauseScreen != null && pauseManager.pauseScreen.activeSelf)
+        {
+            return Vector2.zero;
+        }
+
+        // Don't allow movement if options menu is open
+        var optionsManager = FindFirstObjectByType<OptionsManager>(FindObjectsInactive.Include);
+        if (optionsManager != null && optionsManager.optionsScreen != null && optionsManager.optionsScreen.activeSelf)
+        {
+            return Vector2.zero;
+        }
+
+        var keyboard = Keyboard.current;
+        if (keyboard == null) return Vector2.zero;
+
+        Vector2 movement = Vector2.zero;
+
+        // WASD input
+        if (keyboard.wKey.isPressed) movement.y += 1f; // Forward
+        if (keyboard.sKey.isPressed) movement.y -= 1f; // Backward
+        if (keyboard.aKey.isPressed) movement.x -= 1f; // Left
+        if (keyboard.dKey.isPressed) movement.x += 1f; // Right
+
+        return movement;
+    }
+
+    /// <summary>
     /// Helper method to check if we're in Visual Novel mode
     /// </summary>
     public bool IsInVisualNovelMode()
     {
         return GameModeManager.GetInstance() != null && 
                GameModeManager.GetInstance().currentMode == GameModeManager.GameMode.VisualNovel;
+    }
+
+    /// <summary>
+    /// Helper method to check if we're in Walk mode
+    /// </summary>
+    public bool IsInWalkMode()
+    {
+        return GameModeManager.GetInstance() != null && 
+               GameModeManager.GetInstance().currentMode == GameModeManager.GameMode.Walk;
     }
 }
