@@ -124,7 +124,29 @@ public class DialogueManager : MonoBehaviour
         currentStory = new Story(inkJSON.text);
         dialogueIsPlaying = true;
         GameModeManager.GetInstance().SetMode(GameModeManager.GameMode.VisualNovel);
+        
+        // Show character sprites that should be visible
+        ShowInitialCharacterSprites();
+        
         ContinueStory();
+    }
+
+    private void ShowInitialCharacterSprites()
+    {
+        // Reactivate character sprites that have sprites assigned
+        // This ensures sprites are visible when entering dialogue mode
+        if (blakeSprite != null && blakeSprite.sprite != null)
+        {
+            blakeSprite.gameObject.SetActive(true);
+        }
+        if (otherCharacterSprite != null && otherCharacterSprite.sprite != null)
+        {
+            otherCharacterSprite.gameObject.SetActive(true);
+        }
+        if (thirdCharacterSprite != null && thirdCharacterSprite.sprite != null)
+        {
+            thirdCharacterSprite.gameObject.SetActive(true);
+        }
     }
 
     private void ExitDialogueMode()
@@ -151,6 +173,10 @@ public class DialogueManager : MonoBehaviour
         {
             otherCharacterSprite.gameObject.SetActive(false);
         }
+        if (thirdCharacterSprite != null)
+        {
+            thirdCharacterSprite.gameObject.SetActive(false);
+        }
     }
 
     private void ContinueStory()
@@ -162,6 +188,12 @@ public class DialogueManager : MonoBehaviour
             
             // Handle tags (including speaker name)
             HandleTags(currentStory.currentTags);
+            
+            // Trigger hop animation for current speaker on every line (but not when skipping)
+            if (!isSkipping && !string.IsNullOrEmpty(currentSpeaker))
+            {
+                TriggerSpeakerHop(currentSpeaker);
+            }
             
             // Display the dialogue with typewriter effect
             if (enableTypewriter)
@@ -277,15 +309,8 @@ public class DialogueManager : MonoBehaviour
             Debug.LogWarning("Name text component not assigned!");
         }
         
-        // Check if speaker changed and trigger hop animation (but not when skipping)
-        if (currentSpeaker != speakerName)
-        {
-            if (!isSkipping)
-            {
-                TriggerSpeakerHop(speakerName);
-            }
-            currentSpeaker = speakerName;
-        }
+        // Update current speaker
+        currentSpeaker = speakerName;
     }
 
     private string GetColoredSpeakerName(string speakerName)
@@ -343,6 +368,7 @@ public class DialogueManager : MonoBehaviour
             if (blakeSprite != null)
             {
                 blakeSprite.sprite = foundSprite;
+                blakeSprite.gameObject.SetActive(true); // Ensure the sprite is visible
                 //Debug.Log($"Changed Blake sprite to: {spriteName}");
             }
             else
@@ -356,6 +382,7 @@ public class DialogueManager : MonoBehaviour
             if (otherCharacterSprite != null)
             {
                 otherCharacterSprite.sprite = foundSprite;
+                otherCharacterSprite.gameObject.SetActive(true); // Ensure the sprite is visible
                 Debug.Log($"Changed other character sprite to: {spriteName}");
             }
             else
@@ -380,6 +407,7 @@ public class DialogueManager : MonoBehaviour
         if (thirdCharacterSprite != null)
         {
             thirdCharacterSprite.sprite = foundSprite;
+            thirdCharacterSprite.gameObject.SetActive(true); // Ensure the sprite is visible
             Debug.Log($"Changed third character sprite to: {spriteName}");
         }
         else

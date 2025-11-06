@@ -324,4 +324,46 @@ public class InputHandler : MonoBehaviour
         return GameModeManager.GetInstance() != null && 
                GameModeManager.GetInstance().currentMode == GameModeManager.GameMode.Walk;
     }
+
+    /// <summary>
+    /// Returns true when Enter or Spacebar is pressed for interactions during Walk mode
+    /// Only works in Walk mode and when input is enabled
+    /// </summary>
+    public bool GetInteractPressed()
+    {
+        // Check if input is disabled
+        if (!inputEnabled)
+        {
+            return false;
+        }
+
+        // Only allow interaction input in Walk mode
+        if (GameModeManager.GetInstance() == null || 
+            GameModeManager.GetInstance().currentMode != GameModeManager.GameMode.Walk)
+        {
+            return false;
+        }
+
+        // Don't allow interaction if pause menu is open
+        var pauseManager = FindFirstObjectByType<PauseManager>(FindObjectsInactive.Include);
+        if (pauseManager != null && pauseManager.pauseScreen != null && pauseManager.pauseScreen.activeSelf)
+        {
+            return false;
+        }
+
+        // Don't allow interaction if options menu is open
+        var optionsManager = FindFirstObjectByType<OptionsManager>(FindObjectsInactive.Include);
+        if (optionsManager != null && optionsManager.optionsScreen != null && optionsManager.optionsScreen.activeSelf)
+        {
+            return false;
+        }
+
+        var keyboard = Keyboard.current;
+        if (keyboard == null) return false;
+
+        // Check for Enter or Spacebar
+        return keyboard.enterKey.wasPressedThisFrame || 
+               keyboard.numpadEnterKey.wasPressedThisFrame || 
+               keyboard.spaceKey.wasPressedThisFrame;
+    }
 }
