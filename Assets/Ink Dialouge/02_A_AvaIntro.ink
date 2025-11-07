@@ -14,10 +14,10 @@ Was it not the same for you? I got knocked unconcious. Now I'm here. #speaker:Av
 My memory is a bit blurry... #speaker:Blake #sprite:BlakeDistressed_P1_EC
 I see. Maybe they hit your head harder than they did mine. #speaker:Ava #sprite:AvaNeutral_P1_EC
 THOMAS HAS SENT YOU A MESSAGE. #speaker: ??? #sprite:JellyfishNeutral_P1_EC
-HE SAID "Hey I know we haven't spoken in awhile but I cant stop thinking about you-"
+HE SAID "hey I know we haven't spoken in awhile but I have something I want to tell you-"
 Please block Thomas. #speaker:Ava #sprite:AvaNeutral_P1_EO
 What the f- #speaker:Blake #sprite:BlakeDistressed_P1_EO
-THOMAS ALSO SAID "You are a really beautiful girl and-" #speaker:??? #sprite:JellyfishNeutral_P1_EC
+THOMAS ALSO SAID "youre really pretty and I have developed feelings for-" #speaker:??? #sprite:JellyfishNeutral_P1_EC
 Is this Thomas from the hidden mafia game? I didn't give him my number for crap like this. Ugh. #speaker:Ava #sprite:AvaGrimace_P1_EO
 Wait. #sprite:AvaNeutral_P1_EC
 Jellyfish, you have an internet connection right now?  #sprite:AvaNeutral_P1_EO
