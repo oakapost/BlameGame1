@@ -1,0 +1,1 @@
+(A plain table with two sealed shut boxes.) #third_sprite:transparent #sprite:AvaTransparent #sprite:BlakeGrimace_P1_EO #speaker: Blake
