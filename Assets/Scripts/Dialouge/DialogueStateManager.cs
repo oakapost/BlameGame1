@@ -28,7 +28,22 @@ public class DialogueStateManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject); // Temporarily disabled for testing
+        
+        // Clear state on awake to ensure fresh start in editor
+        playCounts.Clear();
+        flags.Clear();
+        Debug.Log("DialogueStateManager: State cleared in Awake");
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+            playCounts.Clear();
+            flags.Clear();
+        }
     }
 
     /// <summary>
@@ -44,12 +59,27 @@ public class DialogueStateManager : MonoBehaviour
         if (interactable.dialogueNodes == null)
             return null;
 
+        Debug.Log($"=== TriggerDialogue for '{interactable.displayName}' ===");
+        Debug.Log($"Current global flags: {string.Join(", ", flags)}");
+
         for (int i = 0; i < interactable.dialogueNodes.Count; i++)
         {
             var node = interactable.dialogueNodes[i];
             // Validate node
             if (node == null)
                 continue;
+
+            Debug.Log($"Checking Node {i}: {(node.inkJSON != null ? node.inkJSON.name : "NULL")}");
+            
+            // Debug: Show what's in required flags
+            if (node.requiredFlags != null && node.requiredFlags.Count > 0)
+            {
+                Debug.Log($"  Node {i} requires flags: [{string.Join(", ", node.requiredFlags)}]");
+            }
+            else
+            {
+                Debug.Log($"  Node {i} has NO required flags (empty or null list)");
+            }
 
             // Check required flags
             bool ok = true;
@@ -59,23 +89,35 @@ public class DialogueStateManager : MonoBehaviour
                 {
                     if (!string.IsNullOrEmpty(req) && !HasFlag(req))
                     {
+                        Debug.Log($"  Node {i} REJECTED: Missing required flag '{req}'");
                         ok = false;
                         break;
                     }
                 }
             }
 
+            if (ok && node.requiredFlags != null && node.requiredFlags.Count > 0)
+            {
+                Debug.Log($"  Node {i}: All required flags present");
+            }
+
             // Check max plays
             string key = ComposeKey(interactable, i);
             int played = GetPlayCount(key);
             if (node.maxPlays >= 0 && played >= node.maxPlays)
+            {
+                Debug.Log($"  Node {i} REJECTED: Already played {played}/{node.maxPlays} times");
                 ok = false;
+            }
 
             if (!ok)
                 continue;
 
+            Debug.Log($"  Node {i} SELECTED! Playing: {(node.inkJSON != null ? node.inkJSON.name : "NULL")}");
+
             // Node is playable. Apply side effects and return its ink JSON.
             SetPlayCount(key, played + 1);
+            Debug.Log($"  Play count for key '{key}' incremented from {played} to {played + 1}");
 
             if (node.unlocksFlags != null)
             {
@@ -127,6 +169,16 @@ public class DialogueStateManager : MonoBehaviour
     {
         if (string.IsNullOrEmpty(flag)) return;
         flags.Remove(flag);
+    }
+
+    /// <summary>
+    /// Clear all dialogue state - useful for testing or new game
+    /// </summary>
+    public void ResetAllDialogueState()
+    {
+        playCounts.Clear();
+        flags.Clear();
+        Debug.Log("All dialogue state has been reset!");
     }
 
     // --- Optional: methods to export/import state for saving ---

@@ -383,7 +383,7 @@ public class DialogueManager : MonoBehaviour
             {
                 otherCharacterSprite.sprite = foundSprite;
                 otherCharacterSprite.gameObject.SetActive(true); // Ensure the sprite is visible
-                Debug.Log($"Changed other character sprite to: {spriteName}");
+                //Debug.Log($"Changed other character sprite to: {spriteName}");
             }
             else
             {
@@ -408,7 +408,7 @@ public class DialogueManager : MonoBehaviour
         {
             thirdCharacterSprite.sprite = foundSprite;
             thirdCharacterSprite.gameObject.SetActive(true); // Ensure the sprite is visible
-            Debug.Log($"Changed third character sprite to: {spriteName}");
+            //Debug.Log($"Changed third character sprite to: {spriteName}");
         }
         else
         {

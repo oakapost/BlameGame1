@@ -1,1 +1,0 @@
-(There's... a person in the corner. I should talk to her before I snoop around.) #third_sprite:transparent #sprite:AvaTransparent #sprite:BlakeNeutral_P1_EO #speaker: Blake
