@@ -1,0 +1,2 @@
+(There's a monitor mounted on the wall.) #third_sprite:transparent #sprite:AvaTransparent #sprite:BlakeGrimace_P1_EO #speaker: Blake
+(What is this, some sort of death game? Haha.) #sprite:BlakeNeutral_P1_EO

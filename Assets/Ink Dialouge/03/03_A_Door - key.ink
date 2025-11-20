@@ -1,0 +1,8 @@
+(The door is locked. Just like Ava said.) #third_sprite:transparent #sprite:AvaTransparent #sprite:BlakeGrimace_P1_EO #speaker: Blake
+(There isn't even a keyhole. It looks electonically operated, like sliding doors at a grocery store.)#sprite:BlakeNeutral_P1_EO
+(Except, if, like, the sliding doors had broken sensors and were made of metal and super sturdy.)#sprite:BlakeDistressed_P1_EO
+(How the hell are we supposed to get out of here?) #sprite: BlakeGrimace_P1_EC
+(Ava mentioned us being kidnapped, but that still doesn't make a lot of sense to me) #sprite:BlakeNeutral_P1_EO
+(I'm not some type of VIP or anything.) #sprite:BlakeGrimace_P1_EO
+(I work remotely in marketing and play games all day. I only see sliding doors during grocery runs, which are also coincidentally the only times I touch grass.) #sprite:BlakeDistressed_P1_EO
+(Why me.) #sprite:BlakeGrimace_P1_EC
