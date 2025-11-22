@@ -2962,6 +2962,11 @@ MonoBehaviour:
   stableId: monitor
   customInteractionRadius: 1.75
   dialogueNodes:
+  - inkJSON: {fileID: 4900000, guid: 32d14d4e35e97fb42a76449809157f5f, type: 3}
+    requiredFlags:
+    - 5
+    unlocksFlags: []
+    maxPlays: -1
   - inkJSON: {fileID: 4900000, guid: bb1f7ba4f0a3146498c7f2a3a325fbd6, type: 3}
     requiredFlags:
     - 4.4
@@ -3871,6 +3876,16 @@ MonoBehaviour:
   stableId: ava
   customInteractionRadius: 1.5
   dialogueNodes:
+  - inkJSON: {fileID: 4900000, guid: d5b7c38e08e11db4e918d1200019c156, type: 3}
+    requiredFlags:
+    - 5
+    unlocksFlags: []
+    maxPlays: -1
+  - inkJSON: {fileID: 4900000, guid: 09f11000e63c1e24a88cfacbfed55649, type: 3}
+    requiredFlags:
+    - 4.4
+    unlocksFlags: []
+    maxPlays: -1
   - inkJSON: {fileID: 4900000, guid: cf4b336fd71141647b87657d755f996d, type: 3}
     requiredFlags:
     - 04.1
@@ -3879,11 +3894,6 @@ MonoBehaviour:
     unlocksFlags:
     - 4.4
     maxPlays: 1
-  - inkJSON: {fileID: 4900000, guid: 09f11000e63c1e24a88cfacbfed55649, type: 3}
-    requiredFlags:
-    - 4.4
-    unlocksFlags: []
-    maxPlays: -1
   - inkJSON: {fileID: 4900000, guid: 87c16d45fad4d1e4196a4107bafd2f2f, type: 3}
     requiredFlags:
     - 03
@@ -4614,6 +4624,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OptionsScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 6777864768809080133, guid: 7bacbeb6071c0ec4bad20dff110ccfca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5290,6 +5304,11 @@ MonoBehaviour:
   stableId: door
   customInteractionRadius: 2
   dialogueNodes:
+  - inkJSON: {fileID: 4900000, guid: fb44969b9d252e84b86134d93dd24400, type: 3}
+    requiredFlags:
+    - 5
+    unlocksFlags: []
+    maxPlays: -1
   - inkJSON: {fileID: 4900000, guid: 5b2b0556547d1024ebad7dff687a43a1, type: 3}
     requiredFlags:
     - 4.4
@@ -5512,6 +5531,17 @@ MonoBehaviour:
   stableId: table
   customInteractionRadius: 1.5
   dialogueNodes:
+  - inkJSON: {fileID: 4900000, guid: 89ff1274db65efb4c9471b89d2118927, type: 3}
+    requiredFlags:
+    - 6
+    unlocksFlags: []
+    maxPlays: -1
+  - inkJSON: {fileID: 4900000, guid: e300e831b3b66b54fbed3b482093a3e7, type: 3}
+    requiredFlags:
+    - 5
+    unlocksFlags:
+    - 6
+    maxPlays: 1
   - inkJSON: {fileID: 4900000, guid: ff869d7bf3c16f9489674719400fc54f, type: 3}
     requiredFlags:
     - 4.4
