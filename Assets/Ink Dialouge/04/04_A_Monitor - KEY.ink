@@ -2,7 +2,7 @@ Zzztt zzzttt  #third_sprite:transparent #sprite:AvaNeutral_P1_EO #sprite:BlakeNe
 Zzzttt zt zt t-t-testing testing. Can you hear me?
 Yes. #speaker:Ava #sprite:AvaGrimace_P1_EO
 Hello?? #speaker:Blake #sprite:BlakeGrimace_P1_EO
-We can hear you, sir! #speaker:Jellyfish #sprite:JellyfishNeutral_P1_EC
+WE CAN HEAR YOU, SIR! #speaker:Jellyfish #sprite:JellyfishNeutral_P1_EC
 Ah, good. Hello friends. I'm glad you are awake. #speaker:Monitor
 Friends? Who the hell are you? Let us out of here. #speaker: Blake #sprite:BlakeAnger_P1_EO
 As you can see, you two are confined to this room. But not for long. #speaker:Monitor
@@ -19,7 +19,7 @@ Got it. #speaker:Ava #sprite:AvaNeutral_P1_EC
 Got it??? How are you so calm about this?#speaker:Blake #sprite:BlakeDistressed_P1_EO
 Hey monitor man, what kinda game are you talking about? Are you going to make us play sports or something? #sprite:BlakeAnger_P1_EO
 Please say no, I'm not very good at sports. #sprite:BlakeGrimace_P1_EO
-No my friend, you will not be forced to play sports. #speaker:Monitor
+What is this, PE? No my friend, you will not be forced to play sports. #speaker:Monitor
 Thank goodness. #speaker:Blake #sprite:BlakeGrimace_P1_EC
 You will be forced to play a social deduction game! #speaker:Monitor
 what #speaker:Blake #sprite:BlakeNeutral_P1_EO
@@ -33,7 +33,7 @@ Yes, this is a voting game! Each round, in the order they were assigned, partici
 So what happens to the person with the majority votes? They die? Are we trying to find the demons and eliminate them? #speaker:Ava #sprite:AvaNeutral_P1_EO
 Ava... what...#speaker:Blake #sprite:BlakeShock_P1_EO
 Silly girl, this is not a game that has to do with majority vote.#speaker:Monitor
-It does not matter who gets the most votes. Rather, it matter whether an angel or a demon voted. 
+It does not matter who gets the most votes. Rather, it matters whether an angel or a demon voted. 
 I'm really confused. #speaker:Blake #sprite:BlakeDistressed_P1_EC
 Allow me to clear your confusion!#speaker:Monitor
 When a demon votes for somebody, that vote will eliminate the recipient of the vote.
@@ -85,7 +85,7 @@ This really gets my blood going!
 Also it should be noted you are not allowed to forcefully get the other person to show you their card. 
 This is not a game of physical strength, this is a game of social strategy. 
 Once you have made the decision on whether or not to show your room partner your card, you will burn your card. There are also lighters inside the boxes. 
-You see, I don't want you to show your card to the other participants once you enter the main room. 
+You see, I don't want you to show your card to the other participants once you enter the game room. 
 For once both cards are burned, this door will unlock, you can meet the other participants, and voting will be available.
 Go on now! Pick a box, any box!
 (...) #speaker:Blake #sprite:BlakePanic_P1_EO

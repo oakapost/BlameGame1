@@ -24,7 +24,7 @@ Jellyfish, you have an internet connection right now?  #sprite:AvaNeutral_P1_EO
 NO. #speaker: Jellyfish #sprite:JellyfishNeutral_P1_EC
 Oh. #speaker:Ava #sprite:AvaLookaway_P1_EO
 YOU WERE UNCONCIOUS SO I COULDN'T TELL YOU IN THE MOMENT. #speaker:Jellyfish #sprite:JellyfishNeutral_P1_EC
-Please block Thomas when if we get out of here. #speaker:Ava #sprite:AvaGrimace_P1_EO
+Please block Thomas when we get out of here. #speaker:Ava #sprite:AvaGrimace_P1_EO
 Hold on, your arm can talk? #speaker:Blake #sprite:BlakeGrimace_P1_EO
 Yeah. His name is Jellyfish. #speaker:Ava #sprite:AvaNeutral_P1_EO
 I have so many questions. #speaker:Blake #sprite:BlakeDistressed_P1_EC
