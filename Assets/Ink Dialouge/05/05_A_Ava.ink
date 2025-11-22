@@ -1,0 +1,3 @@
+I'm still confused about the rules. #third_sprite:transparent #sprite:AvaNeutral_P1_EO #sprite:BlakeDistressed_P1_EO #speaker:Blake #fourth_sprite:transparent
+Focus on the task at hand for now. Strategies will change depending on what roles we get. #speaker:Ava  #sprite:AvaLookaway_P1_EO
+(Her strategy might change... I don't really have a strategy at the moment.) #speaker: Blake #sprite:BlakeDistressed_P1_EC

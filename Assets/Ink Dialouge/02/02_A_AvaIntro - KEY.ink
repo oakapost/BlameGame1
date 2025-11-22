@@ -1,4 +1,4 @@
-(There's a woman here! Maybe she knows why I'm here...) #third_sprite:transparent #sprite:AvaNeutral_P1_EO #sprite:BlakeShock_P1_EO #speaker:Blake
+(There's a woman here! Maybe she knows why I'm here...) #third_sprite:transparent #sprite:AvaNeutral_P1_EO #sprite:BlakeShock_P1_EO #speaker:Blake #fourth_sprite:transparent
 (Or, where 'here' even is.) #sprite:BlakeNeutral_P1_EO
 (...) #sprite:BlakeGrimace_P1_EO
 (Is that a mechanical arm?) #sprite:BlakeDistressed_P1_EO

@@ -1,1 +1,1 @@
-It's best to get your barings in these situations. Go on then, explore. #third_sprite:transparent #sprite:AvaNeutral_P1_EO #sprite:BlakeNeutral_P1_EO #speaker:Ava
+It's best to get your barings in these situations. Go on then, explore. #third_sprite:transparent #sprite:AvaNeutral_P1_EO #sprite:BlakeNeutral_P1_EO #speaker:Ava #fourth_sprite:transparent

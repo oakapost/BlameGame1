@@ -1,4 +1,4 @@
-(There's an angel in front of me.) #speaker:Blake #sprite:BlakeNeutral_P1_EC #third_sprite:ThirdSpriteTemp
+(There's an angel in front of me.) #speaker:Blake #sprite:BlakeNeutral_P1_EC #third_sprite:AngelStillCG #fourth_sprite:transparent
 (Her glow is an oasis in a desert of darkness.)
 (Her warmth, her protection, is pulling me in. I need to get closer to her. I need her to survive.)
 (My throat is dry. I claw at it and look to her. Her judgement casts a soothing layer of liquid relief over my parched toungue.) #sprite:BlakeDistressed_P1_EC

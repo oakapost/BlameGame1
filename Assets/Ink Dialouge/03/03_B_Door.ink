@@ -1,1 +1,1 @@
-(Locked. Just like Ava said.) #third_sprite:transparent #sprite:AvaTransparent #sprite:BlakeGrimace_P1_EO #speaker: Blake
+(Locked. Just like Ava said.) #third_sprite:transparent #sprite:AvaTransparent #sprite:BlakeGrimace_P1_EO #speaker: Blake #fourth_sprite:transparent

@@ -1,4 +1,4 @@
-Did you eat lunch today?  #third_sprite:transparent #sprite:JellyfishNeutral_P1_EC #sprite:BlakeNeutral_P1_EO #speaker:Jellyfish
+Did you eat lunch today?  #third_sprite:transparent #sprite:JellyfishNeutral_P1_EC #sprite:BlakeNeutral_P1_EO #speaker:Jellyfish #fourth_sprite:transparent
 No. I was kidnapped. #speaker:Ava #sprite:AvaNeutral_P1_EO
 Hi, Blake. Find anything interesting? #sprite:AvaNeutral_P1_EC
 Not really. We are stuck here. #speaker:Blake #sprite:BlakeGrimace_P1_EC

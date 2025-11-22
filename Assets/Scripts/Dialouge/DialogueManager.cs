@@ -15,6 +15,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Image blakeSprite;      // Always on the left
     [SerializeField] private UnityEngine.UI.Image otherCharacterSprite; // Always on the right
     [SerializeField] private UnityEngine.UI.Image thirdCharacterSprite; // Center or special position
+    [SerializeField] private UnityEngine.UI.Image fourthCharacterSprite; // Fourth position
     
     [Header("Character Sprites")]
     [SerializeField] private Sprite[] characterSprites;
@@ -147,6 +148,10 @@ public class DialogueManager : MonoBehaviour
         {
             thirdCharacterSprite.gameObject.SetActive(true);
         }
+        if (fourthCharacterSprite != null && fourthCharacterSprite.sprite != null)
+        {
+            fourthCharacterSprite.gameObject.SetActive(true);
+        }
     }
 
     private void ExitDialogueMode()
@@ -176,6 +181,10 @@ public class DialogueManager : MonoBehaviour
         if (thirdCharacterSprite != null)
         {
             thirdCharacterSprite.gameObject.SetActive(false);
+        }
+        if (fourthCharacterSprite != null)
+        {
+            fourthCharacterSprite.gameObject.SetActive(false);
         }
     }
 
@@ -237,6 +246,9 @@ public class DialogueManager : MonoBehaviour
                     break;
                 case "third_sprite":
                     DisplayThirdCharacterSprite(tagValue);
+                    break;
+                case "fourth_sprite":
+                    DisplayFourthCharacterSprite(tagValue);
                     break;
                 // You can add more tag types here later (like emotions, etc.)
                 default:
@@ -416,6 +428,30 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private void DisplayFourthCharacterSprite(string spriteName)
+    {
+        // Find the sprite with the matching name
+        Sprite foundSprite = FindSpriteByName(spriteName);
+        
+        if (foundSprite == null)
+        {
+            Debug.LogWarning($"Fourth character sprite '{spriteName}' not found in character sprites array!");
+            return;
+        }
+
+        // Display the sprite on the fourth character image
+        if (fourthCharacterSprite != null)
+        {
+            fourthCharacterSprite.sprite = foundSprite;
+            fourthCharacterSprite.gameObject.SetActive(true); // Ensure the sprite is visible
+            //Debug.Log($"Changed fourth character sprite to: {spriteName}");
+        }
+        else
+        {
+            Debug.LogWarning("Fourth character sprite component not assigned!");
+        }
+    }
+
     private void TriggerSpeakerHop(string speakerName)
     {
         // Determine which character sprite to animate based on speaker
@@ -424,6 +460,10 @@ public class DialogueManager : MonoBehaviour
         if (speakerName == "Blake")
         {
             targetSprite = blakeSprite;
+        }
+        else if (speakerName == "Monitor")
+        {
+            targetSprite = fourthCharacterSprite;
         }
         else
         {

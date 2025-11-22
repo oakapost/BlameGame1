@@ -1,1 +1,1 @@
-(Still a table. I need to see what is up with the monitor right now.) #third_sprite:transparent #sprite:AvaTransparent #sprite:BlakeNeutral_P1_EO #speaker:Blake
+(Still a table. I need to see what is up with the monitor right now.) #third_sprite:transparent #sprite:AvaTransparent #sprite:BlakeNeutral_P1_EO #speaker:Blake #fourth_sprite:transparent

@@ -1,0 +1,1 @@
+You role cards are on the table. Choose wisely. #third_sprite:transparent #sprite:AvaNeutral_P1_EO #sprite:BlakeNeutral_P1_EO #speaker:Monitor #fourth_sprite:MonitorSmile

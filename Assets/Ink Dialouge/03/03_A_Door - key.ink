@@ -1,4 +1,4 @@
-(The door is locked. Just like Ava said.) #third_sprite:transparent #sprite:AvaTransparent #sprite:BlakeGrimace_P1_EO #speaker: Blake
+(The door is locked. Just like Ava said.) #third_sprite:transparent #sprite:AvaTransparent #sprite:BlakeGrimace_P1_EO #speaker: Blake #fourth_sprite:transparent
 (There isn't even a keyhole. It looks electonically operated, like sliding doors at a grocery store.)#sprite:BlakeNeutral_P1_EO
 (Except, if, like, the sliding doors had broken sensors and were made of metal and super sturdy.)#sprite:BlakeDistressed_P1_EO
 (How the hell are we supposed to get out of here?) #sprite: BlakeGrimace_P1_EC
